@@ -1,0 +1,50 @@
+{
+  "env": {
+    "mocha": true,
+    "node": true
+  },
+  "parser": "@babel/eslint-parser",
+  "extends": "airbnb-base",
+  "globals": {
+    "BigInt": true,
+    "WebSocket": true,
+    "MozWebSocket": true
+  },
+  "rules": {
+    "max-classes-per-file": "off",
+    "class-methods-use-this": "off",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "function-paren-newline": [
+      "error",
+      "consistent"
+    ],
+    "no-bitwise": "off",
+    "no-else-return": "off",
+    "no-unused-expressions": "off",
+    "semi": [
+      "error",
+      "never"
+    ],
+    "strict": [
+      "error",
+      "global"
+    ],
+    "prefer-destructuring": [
+      "error",
+      {
+        "object": true,
+        "array": false
+      }
+    ],
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "optionalDependencies": false,
+        "peerDependencies": false
+      }
+    ]
+  }
+}

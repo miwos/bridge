@@ -1,0 +1,13 @@
+{
+  "name": "bridge",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "upload": "cd ./device && pio run --target upload",
+    "test": "pnpm upload && pnpm test --dir app"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

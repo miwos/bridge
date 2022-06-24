@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Bridge handles many consecutive file writes 1`] = `
+Array [
+  Object {
+    "name": "file-1.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-2.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-3.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-4.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-5.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-6.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-7.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-8.txt",
+    "type": "file",
+  },
+  Object {
+    "name": "file-9.txt",
+    "type": "file",
+  },
+]
+`;
+
+exports[`Bridge lists a directory 1`] = `
+Array [
+  Object {
+    "children": Array [
+      Object {
+        "children": Array [
+          Object {
+            "name": "test.txt",
+            "type": "file",
+          },
+        ],
+        "name": "nested",
+        "type": "directory",
+      },
+    ],
+    "name": "deeply",
+    "type": "directory",
+  },
+  Object {
+    "name": "test.tx",
+    "type": "file",
+  },
+]
+`;

@@ -1,0 +1,14 @@
+{
+  "name": "Bridge",
+  "version": "0.0.1",
+  "authors": {
+    "name": "arnoson"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cnmat/OSC": "0.0.0-alpha+sha.41b44981e3",
+    "robtillaart/CRC": "~0.3.1"
+  },
+  "frameworks": ["arduino"],
+  "platforms": ["teensy"]
+}

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "types": ["@types/w3c-web-serial", "jest"],
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "strict": true,
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "lib": ["esnext", "dom"]
+  },
+  "include": ["**/*.ts", "**/*.d.ts"],
+  "exclude": ["node_modules"]
+}
