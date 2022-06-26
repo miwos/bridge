@@ -1,11 +1,14 @@
 {
-  "name": "bridge-app",
-  "version": "1.0.0",
+  "name": "@miwos/bridge",
+  "version": "0.1.0",
   "description": "",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": ["dist"],
   "type": "module",
   "scripts": {
-    "dev": "tsup dev/index.ts --watch --format esm --target esnext --onSuccess \"node dist/index.js\"",
+    "build": "tsup src/index.ts src/NodeSerialTransport.ts src/WebSerialTransport.ts --dts",
+    "dev": "tsup dev/index.ts --watch --onSuccess \"node dist/index.js\"",
     "test": "jest --silent false"
   },
   "keywords": [],
