@@ -23,6 +23,13 @@ describe('Bridge', () => {
     expect(response).toBe(123)
   })
 
+  it('handles request response timeouts', async () => {
+    const nonExistingOscAddress = `/test/${randomString(50)}`
+    await expect(bridge.request(nonExistingOscAddress, 0)).rejects.toThrow(
+      'Response timeout'
+    )
+  })
+
   it('writes and reads a file', async () => {
     const content = performance.now().toString()
     const file = `${testDir}/test.tx`
