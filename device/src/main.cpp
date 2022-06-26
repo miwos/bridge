@@ -12,7 +12,7 @@ void setup() {
   }
 
   Bridge::begin(serial);
-  Bridge::FileSystem::begin();
+  FileSystem::begin();
 }
 
 void loop() { Bridge::update(); }

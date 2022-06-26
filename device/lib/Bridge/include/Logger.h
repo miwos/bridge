@@ -5,7 +5,7 @@
 #include <Arduino.h>
 #include <OSCMessage.h>
 
-namespace Bridge { namespace Logger {
+namespace Logger {
   enum LogType { LogTypeInfo, LogTypeWarn, LogTypeError, LogTypeDump };
 
   namespace {
@@ -51,12 +51,16 @@ namespace Bridge { namespace Logger {
     sendOscMessage(message);
     serial->beginPacket();
   }
-
   void endLog() { serial->endPacket(); }
 
   void beginError() { beginLog(LogTypeError); }
+  void endError() { endLog(); }
+
   void beginWarn() { beginLog(LogTypeWarn); }
+  void endWarn() { endLog(); }
+
   void beginInfo() { beginLog(LogTypeInfo); }
-}} // namespace Bridge::Logger
+  void endInfo() { endLog(); }
+} // namespace Logger
 
 #endif

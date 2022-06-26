@@ -6,7 +6,17 @@
 #include <CRC16.h>
 #include <SdFat.h>
 
-namespace Bridge { namespace FileSystem {
+namespace FileSystem {
+  using Bridge::Data;
+  using Bridge::RequestId;
+  using Bridge::serial;
+
+  using Bridge::beginRespond;
+  using Bridge::endRespond;
+  using Bridge::respond;
+  using Bridge::respondError;
+  using Bridge::validateData;
+
   using Logger::error;
   using Logger::info;
 
@@ -121,9 +131,9 @@ namespace Bridge { namespace FileSystem {
       respond(id);
     }
 
-    // Thanks J-M-L!
-    // https://forum.arduino.cc/t/solved-list-all-directory-and-file-with-levels-using-sdfat-h/923938/2
-    void listDir(FatFile &dir, byte depth) {
+    // https://forum.arduino.cc/t/solved-list-all-directory-and-file-with-levels-using-sdfat-h/923938/2,
+    // thanks J-M-L!
+    void listDir(FatFile &dir, byte depth, bool isRecursive) {
       FatFile file;
 
       if (!dir.isDir()) return;
@@ -140,7 +150,7 @@ namespace Bridge { namespace FileSystem {
 
           if (file.isDir()) {
             serial->println(F("/"));
-            listDir(file, depth + 1);
+            if (isRecursive) listDir(file, depth + 1, isRecursive);
           } else {
             serial->println();
           }
@@ -152,7 +162,7 @@ namespace Bridge { namespace FileSystem {
     void startListDir(Data &data) {
       RequestId id = data.getInt(0);
       data.getString(1, fileName, maxFileNameLength);
-      int recursive = data.getInt(2);
+      int isRecursive = data.getInt(2);
 
       if (!validateData(data, "isi", 3)) return respondError(id);
 
@@ -160,7 +170,7 @@ namespace Bridge { namespace FileSystem {
       if (!file) return respondError(id, "failed to open file");
 
       beginRespond(id);
-      listDir(file, 0);
+      listDir(file, 0, isRecursive);
       endRespond();
     }
 
@@ -180,6 +190,6 @@ namespace Bridge { namespace FileSystem {
     Bridge::addMethod("/dir/list", startListDir);
     Bridge::addMethod("/dir/remove", removeDir);
   }
-}} // namespace Bridge::FileSystem
+} // namespace FileSystem
 
 #endif
