@@ -6,8 +6,6 @@
 #include <Arduino.h>
 #include <OSCMessage.h>
 
-#define OSC_MATCH_ENABLE_2STARS = 1;
-
 namespace Bridge {
   enum ReadSerialMode { ReadSerialModeOsc, ReadSerialModeRaw };
   enum ResponseType { ResponseSuccess, ResponseError };
