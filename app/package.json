@@ -1,10 +1,12 @@
 {
   "name": "@miwos/bridge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "type": "module",
   "scripts": {
     "build": "tsup src/index.ts src/NodeSerialTransport.ts src/WebSerialTransport.ts --dts",
