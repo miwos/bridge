@@ -110,7 +110,6 @@ export class Bridge extends EventEmitter {
   private waitForResponse(id: number): Promise<MessageArg> {
     return new Promise((resolve, reject) => {
       const timeout = this.startResponseTimeout(reject)
-      clearTimeout(timeout)
 
       // Listen to all responses until we find a response with the matching
       // request id.
