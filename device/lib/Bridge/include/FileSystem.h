@@ -172,6 +172,8 @@ namespace FileSystem {
       beginRespond(id);
       listDir(file, 0, isRecursive);
       endRespond();
+
+      file.close();
     }
 
   } // namespace
