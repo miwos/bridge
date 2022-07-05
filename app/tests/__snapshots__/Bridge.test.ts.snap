@@ -3,6 +3,10 @@
 exports[`Bridge handles many consecutive file writes 1`] = `
 Array [
   Object {
+    "name": "file-0.txt",
+    "type": "file",
+  },
+  Object {
     "name": "file-1.txt",
     "type": "file",
   },
@@ -44,18 +48,7 @@ Array [
 exports[`Bridge lists a directory 1`] = `
 Array [
   Object {
-    "children": Array [
-      Object {
-        "children": Array [
-          Object {
-            "name": "test.txt",
-            "type": "file",
-          },
-        ],
-        "name": "nested",
-        "type": "directory",
-      },
-    ],
+    "children": Array [],
     "name": "deeply",
     "type": "directory",
   },
