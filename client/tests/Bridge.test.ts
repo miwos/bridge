@@ -3,7 +3,7 @@ import { NodeSerialTransport } from '../src/NodeSerialTransport'
 import { dirIncludes, randomString } from './utils'
 
 const testDir = '__test__'
-const path = 'COM11'
+const path = 'COM5'
 const bridge = new Bridge(new NodeSerialTransport())
 
 beforeAll(async () => {
