@@ -36,7 +36,11 @@ namespace Logger {
   void begin(SlipSerial &serial) { Logger::serial = &serial; }
 
   void log(LogType type, const char *text) {
-    OSCMessage message(getOscAddress(type, false));
+    log(getOscAddress(type, false), text);
+  }
+
+  void log(const char *oscAddress, const char *text) {
+    OSCMessage message(oscAddress);
     message.add(text);
     sendOscMessage(message);
   }
@@ -47,10 +51,15 @@ namespace Logger {
   void dump(const char *text) { log(LogTypeDump, text); }
 
   void beginLog(LogType type) {
-    OSCMessage message(getOscAddress(type, true));
+    beginLog(getOscAddress(type, true));
+  }
+
+  void beginLog(const char *oscAddress) {
+    OSCMessage message(oscAddress);
     sendOscMessage(message);
     serial->beginPacket();
   }
+
   void endLog() { serial->endPacket(); }
 
   void beginError() { beginLog(LogTypeError); }
