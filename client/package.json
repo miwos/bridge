@@ -11,7 +11,8 @@
   "scripts": {
     "build": "tsup src/index.ts src/NodeSerialTransport.ts src/WebSerialTransport.ts --dts",
     "dev": "tsup dev/index.ts --watch --onSuccess \"node dist/index.js\"",
-    "test": "jest --silent false"
+    "test": "jest --silent false",
+    "prepublishOnly": "pnpm build"
   },
   "keywords": [],
   "author": "",
@@ -25,7 +26,8 @@
     "jest": "^28.1.1",
     "nodemon": "^2.0.16",
     "tsup": "^6.1.2",
-    "typescript": "^4.7.4"
+    "typescript": "^4.7.4",
+    "np": "^7.6.2"
   },
   "dependencies": {
     "@serialport/parser-slip-encoder": "^10.3.0",
