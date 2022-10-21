@@ -115,12 +115,6 @@ namespace Bridge {
   void begin(SlipSerial &serial) {
     Bridge::serial = &serial;
     Logger::begin(serial);
-
-    addMethod("/echo", [](Data &data) {
-      RequestId id = data.getInt(0);
-      int number = data.getInt(1);
-      respond(id, number);
-    });
   }
 
   void update() {
