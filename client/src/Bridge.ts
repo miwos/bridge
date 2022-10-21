@@ -129,7 +129,10 @@ export class Bridge extends EventEmitter {
           if (params.type === 'success') {
             resolve(response)
           } else {
-            reject(new Error(response as string))
+            const message = isRaw
+              ? new TextDecoder().decode(response)
+              : response
+            reject(new Error(message))
           }
         }
       }
