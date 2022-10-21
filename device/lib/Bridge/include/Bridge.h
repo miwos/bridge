@@ -79,6 +79,7 @@ namespace Bridge {
 
   void respondError(RequestId id) {
     OSCMessage message(getResponseAddress(ResponseError, false));
+    message.add(id);
     sendOscMessage(message);
   }
 
