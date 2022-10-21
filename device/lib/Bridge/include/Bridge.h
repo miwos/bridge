@@ -142,8 +142,6 @@ namespace Bridge {
         if (handleRawInputEnd != NULL) handleRawInputEnd();
         readSerialMode = ReadSerialModeOsc;
       }
-
-      serial->endPacket();
     }
   }
 
