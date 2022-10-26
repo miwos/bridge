@@ -136,7 +136,7 @@ namespace FileSystem {
       respond(id);
     }
 
-    void startListDir(Data &data) {
+    void listDir(Data &data) {
       RequestId id = data.getInt(0);
       data.getString(1, fileName, maxFileNameLength);
       int isRecursive = data.getInt(2);
@@ -173,7 +173,7 @@ namespace FileSystem {
     Bridge::addMethod("/file/read", readFile);
     Bridge::addMethod("/file/remove", removeFile);
     Bridge::addMethod("/raw/file/write", startWriteFile);
-    Bridge::addMethod("/dir/list", startListDir);
+    Bridge::addMethod("/dir/list", listDir);
     Bridge::addMethod("/dir/remove", removeDir);
   }
 } // namespace FileSystem
