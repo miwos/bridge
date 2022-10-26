@@ -71,10 +71,13 @@ export class Bridge extends EventEmitter {
 
   async readFile(fileName: string) {
     const buffer = (await this.request('/file/read', fileName)) as Uint8Array
-    return new TextDecoder().decode(buffer)
+    const content = new TextDecoder().decode(buffer).slice('File:'.length)
+    return content
   }
 
   async writeFile(fileName: string, content: string) {
+    if (!content.length) throw new Error("file can't be empty")
+
     const id = createRequestId()
     const buffer = new TextEncoder().encode(content)
     const checkSum = crc(buffer)
@@ -98,7 +101,14 @@ export class Bridge extends EventEmitter {
 
   async getDir(dirName: string, recursive = false) {
     const buffer = await this.request('/dir/list', [dirName, recursive ? 1 : 0])
-    return parseDirList(new TextDecoder().decode(buffer as any))
+    const content = new TextDecoder().decode(buffer as any)
+
+    // To prevent a timeout while waiting for an empty dir list, the device
+    // always has to send something (a leading 'Dir:'). If we only received this
+    // and nothing else the directory is empty.
+    if (content === 'Dir:') return []
+
+    return parseDirList(content.slice('Dir:'.length))
   }
 
   private sendMessage(name: string, args: MessageArg | MessageArg[]) {

@@ -3,10 +3,11 @@ import { Dir, DirItem } from '../types'
 const getDepth = (name: string) => {
   let count = 0
   for (const char of name) {
-    if (char !== '\t') break
+    if (char !== ' ') break
     count++
   }
-  return count
+  // Each new depth is represented by two spaces.
+  return count / 2
 }
 
 export const parseDirList = (dirList: string): Dir => {

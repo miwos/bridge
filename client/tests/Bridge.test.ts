@@ -3,7 +3,7 @@ import { NodeSerialTransport } from '../src/NodeSerialTransport'
 import { dirIncludes, randomString } from './utils'
 
 const testDir = '__test__'
-const path = 'COM5'
+const path = 'COM8'
 const bridge = new Bridge(new NodeSerialTransport())
 
 beforeAll(async () => {
@@ -19,7 +19,7 @@ afterAll(() => bridge.close())
 
 describe('Bridge', () => {
   it('requests a response from the device', async () => {
-    const response = await bridge.request('/echo', 123)
+    const response = await bridge.request('/echo/int', 123)
     expect(response).toBe(123)
   })
 
@@ -37,6 +37,20 @@ describe('Bridge', () => {
     expect(await bridge.readFile(file)).toBe(content)
   })
 
+  it('handles empty files', async () => {
+    const file = `${testDir}/test.tx`
+    await expect(bridge.writeFile(file, '')).rejects.toThrowError(
+      "file can't be empty"
+    )
+  })
+
+  it("it throws an error if a file doesn't exit", async () => {
+    const nonExistingFile = `${testDir}/${Date.now()}.txt`
+    await expect(bridge.readFile(nonExistingFile)).rejects.toThrowError(
+      "file doesn't exist"
+    )
+  })
+
   it('it creates missing parent directories', async () => {
     const file = `${testDir}/deeply/nested/test.txt`
     await expect(bridge.writeFile(file, 'test')).resolves.not.toThrowError()
@@ -46,9 +60,19 @@ describe('Bridge', () => {
     expect(await bridge.getDir(testDir)).toMatchSnapshot()
   })
 
+  it('handles empty directories', async () => {
+    const dir = `${testDir}/empty/`
+    // Create a new empty directory by writing a file and then deleting it.
+    await bridge.writeFile(`${dir}/test.txt`, 'test')
+    await bridge.removeFile(`${dir}/test.txt`)
+    expect(await bridge.getDir(dir)).toEqual([])
+  })
+
   it('removes a file', async () => {
     const name = 'test.txt'
-    await bridge.removeFile(`${testDir}/${name}`)
+    const file = `${testDir}/${name}`
+    await bridge.writeFile(file, 'test')
+    await bridge.removeFile(file)
 
     const dir = await bridge.getDir(testDir)
     expect(dirIncludes(dir, name)).toBeFalsy()

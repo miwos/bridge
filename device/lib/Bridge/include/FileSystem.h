@@ -98,6 +98,11 @@ namespace FileSystem {
       if (!file) return respondError(id, "failed to open file");
 
       beginRespond(id);
+      // Always send something, in case the file is empty (and therefore the
+      // client would timeout waiting for the content). We can ignore this in
+      // the client.
+      Bridge::serial->print("File:");
+
       while (file.available()) {
         serial->write(file.read());
       }
@@ -131,34 +136,6 @@ namespace FileSystem {
       respond(id);
     }
 
-    // https://forum.arduino.cc/t/solved-list-all-directory-and-file-with-levels-using-sdfat-h/923938/2,
-    // thanks J-M-L!
-    void listDir(FatFile &dir, byte depth, bool isRecursive) {
-      FatFile file;
-
-      if (!dir.isDir()) return;
-      dir.rewind();
-
-      while (file.openNext(&dir, O_READ)) {
-        if (!file.isHidden()) {
-          for (byte i = 0; i < depth; i++) {
-            serial->write('\t');
-          }
-
-          file.getName(fileName, sizeof(fileName));
-          serial->print(fileName);
-
-          if (file.isDir()) {
-            serial->println(F("/"));
-            if (isRecursive) listDir(file, depth + 1, isRecursive);
-          } else {
-            serial->println();
-          }
-        }
-        file.close();
-      }
-    }
-
     void startListDir(Data &data) {
       RequestId id = data.getInt(0);
       data.getString(1, fileName, maxFileNameLength);
@@ -169,8 +146,15 @@ namespace FileSystem {
       file.open(fileName);
       if (!file) return respondError(id, "failed to open file");
 
+      if (!file.isDir()) return respondError(id, "not a directory");
+
       beginRespond(id);
-      listDir(file, 0, isRecursive);
+      // Always send something, in case the directory is empty (and therefore
+      // the client would timeout waiting for the listing). We can ignore this
+      // in the client.
+      Bridge::serial->print("Dir:");
+
+      file.ls(Bridge::serial, isRecursive ? LS_R : 0, 0);
       endRespond();
 
       file.close();
