@@ -1,4 +1,4 @@
-import crc from 'crc/crc16xmodem'
+import crc from 'crc/calculators/crc16xmodem'
 // @ts-ignore (missing types)
 import Message from 'osc-js'
 import { Transport } from './Transport'
