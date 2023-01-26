@@ -32,13 +32,13 @@ describe('Bridge', () => {
 
   it('writes and reads a file', async () => {
     const content = performance.now().toString()
-    const file = `${testDir}/test.tx`
+    const file = `${testDir}/test.txt`
     await bridge.writeFile(file, content)
     expect(await bridge.readFile(file)).toBe(content)
   })
 
   it('handles empty files', async () => {
-    const file = `${testDir}/test.tx`
+    const file = `${testDir}/test.txt`
     await expect(bridge.writeFile(file, '')).rejects.toThrowError(
       "file can't be empty"
     )
@@ -88,9 +88,9 @@ describe('Bridge', () => {
   it('handles many consecutive file writes', async () => {
     const content = randomString(2000)
     for (let i = 0; i < 10; i++) {
-      await bridge.writeFile(`__test__/many/file-${i}.txt`, content)
+      await bridge.writeFile(`${testDir}/many/file-${i}.txt`, content)
     }
-    const dir = await bridge.getDir('__test__/many')
+    const dir = await bridge.getDir(`${testDir}/many`)
     expect(dir).toMatchSnapshot()
   })
 })

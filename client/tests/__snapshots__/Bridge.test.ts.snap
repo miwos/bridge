@@ -53,7 +53,7 @@ Array [
     "type": "directory",
   },
   Object {
-    "name": "test.tx",
+    "name": "test.txt",
     "type": "file",
   },
 ]
