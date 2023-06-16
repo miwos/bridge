@@ -2,7 +2,7 @@
   "name": "osc-js",
   "version": "2.3.2",
   "description": "OSC library for Node.js and the browser, with customizable Plugin API for WebSocket, UDP or bridge networking",
-  "main": "lib/message.js",
+  "main": "src/message.js",
   "type": "module",
   "scripts": {
     "build": "rollup -c",

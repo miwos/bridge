@@ -2,11 +2,8 @@
   "name": "@miwos/bridge",
   "version": "0.1.4",
   "description": "",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
-  "files": [
-    "dist"
-  ],
+  "main": "src/index.ts",
+  "files": ["src"],
   "type": "module",
   "scripts": {
     "build": "tsup src/index.ts src/NodeSerialTransport.ts src/WebSerialTransport.ts --dts",
@@ -35,7 +32,7 @@
   "dependencies": {
     "@serialport/parser-slip-encoder": "^10.3.0",
     "crc": "^4.1.1",
-    "osc-js": "link:..\\osc-js",
+    "osc-js": "workspace:*",
     "serialport": "^10.4.0"
   }
 }
